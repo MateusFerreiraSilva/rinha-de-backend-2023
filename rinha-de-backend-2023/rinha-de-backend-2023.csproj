@@ -7,4 +7,8 @@
         <RootNamespace>rinha_de_backend_2023</RootNamespace>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
+
 </Project>
