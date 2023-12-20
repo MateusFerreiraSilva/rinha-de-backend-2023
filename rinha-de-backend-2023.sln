@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "rinha-de-backend-2023", "rinha-de-backend-2023\rinha-de-backend-2023.csproj", "{F77F6A71-0468-4C72-A59A-C2AD729A69EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F77F6A71-0468-4C72-A59A-C2AD729A69EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F77F6A71-0468-4C72-A59A-C2AD729A69EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F77F6A71-0468-4C72-A59A-C2AD729A69EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F77F6A71-0468-4C72-A59A-C2AD729A69EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
