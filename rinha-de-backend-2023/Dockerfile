@@ -6,6 +6,9 @@ COPY . ./
 # Restore as distinct layers
 RUN dotnet restore
 # Build and publish a release
+#RUN dotnet tool install --local dotnet-ef --version 6.0.25
+#RUN dotnet ef migrations add Initial --project ../rinha-de-backend-2023.Data  
+#RUN dotnet ef database update
 RUN dotnet publish -c Release -o out
 
 # Build runtime image

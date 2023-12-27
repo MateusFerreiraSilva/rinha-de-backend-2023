@@ -1,16 +1,18 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using rinha_de_backend_2023.Models;
+using rinha_de_backend_2023.Data.Models;
+using rinha_de_backend_2023.Models.DTO;
 using rinha_de_backend_2023.Services.Interfaces;
 
 namespace rinha_de_backend_2023.Controllers.V1;
 
 [ApiController]
+[Route("/pessoas")]
 public class PessoaController : ControllerBase
 {
-    private IPessoaService _pessoaService;
-
-    PessoaController(IPessoaService pessoaService)
+    private readonly IPessoaService _pessoaService;
+    
+    public PessoaController(IPessoaService pessoaService)
     {
         _pessoaService = pessoaService;
     }
@@ -19,22 +21,21 @@ public class PessoaController : ControllerBase
     /// Create
     /// </summary>
     [HttpPost]
-    [Route("/pessoas")]
-    public async Task<IActionResult> PostAsync([Required]Pessoa pessoa)
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(string))]
+    public async Task<IActionResult> PostAsync([FromBody] PessoaDTO pessoa)
     {
-        var response = _pessoaService.PostAsync(pessoa);
-        
-        return Created($"/pessoas/{response.Id}", response);
+        var response = await _pessoaService.PostAsync(pessoa);
+
+        return Created(response, null);
     }
     
     /// <summary>
     /// Get
     /// </summary>
     [HttpGet]
-    [Route("/pessoas/{id}")]
-    public async Task<IActionResult> GetAsync([Required]string id)
+    public async Task<IActionResult> GetAsync([FromHeader, Required]string id)
     {
-        var response = _pessoaService.GetAsync(id);
+        var response = await _pessoaService.GetAsync(id);
         
         return Ok(response);
     }
