@@ -13,7 +13,7 @@ public class Pessoa
 
     public string Nascimento { get; set; }
 
-    // public IList<string> Stack { get; set; }
+    public virtual IList<Technology>? Technologies { get; set; }
 
-    // public string Searchable => Apelido + Nome + string.Join(string.Empty, Stack);
+    // public string Searchable { get; set; } = Apelido + Nome + string.Join(string.Empty, Technologies);
 }

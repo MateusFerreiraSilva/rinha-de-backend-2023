@@ -7,4 +7,6 @@ public class PessoaDTO
     public string Nome { get; set; }
 
     public string Nascimento { get; set; }
+
+    public IList<string>? Stack { get; set; }
 }

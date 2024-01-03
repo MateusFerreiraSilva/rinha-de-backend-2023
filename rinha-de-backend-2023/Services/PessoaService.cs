@@ -14,11 +14,22 @@ public class PessoaService : IPessoaService
         _pessoaRepository = pessoaRepository;
     }
 
-    public async Task<Pessoa> GetAsync(string id)
+    public async Task<PessoaDTO> GetAsync(string id)
     {
         var response = await _pessoaRepository.GetAsync(id);
 
-        return response;
+        if (response == null)
+        {
+            return null;
+        }
+
+        return new PessoaDTO
+        {
+            Apelido = response.Apelido,
+            Nome = response.Nome,
+            Nascimento = response.Nascimento,
+            Stack = response.Technologies?.Select(t => t.Nome).ToList()
+        };
     }
 
     public async Task<string> PostAsync(PessoaDTO pessoaDto)
@@ -27,8 +38,12 @@ public class PessoaService : IPessoaService
         {
             Apelido = pessoaDto.Apelido,
             Nome = pessoaDto.Nome,
-            Nascimento = pessoaDto.Nascimento
+            Nascimento = pessoaDto.Nascimento,
+            Technologies = pessoaDto.Stack?.ToList()
+                .Select(t => new Technology { Nome = t })
+                .ToList()
         };
+      
         var insertedEntityId = await _pessoaRepository.InsertAsync(pessoa);
         var path = $"/pessoas/{insertedEntityId}";
 

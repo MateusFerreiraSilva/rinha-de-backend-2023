@@ -15,7 +15,9 @@ public class PessoaRepository : IPessoaRepository
 
     public async Task<Pessoa> GetAsync(string id)
     {
-        return await _dbContext.Pessoas.FirstAsync(p =>  p.Id == id);
+        return await _dbContext.Pessoas
+            .Include(p => p.Technologies)
+            .FirstAsync(p =>  p.Id == id);
     }
 
     public async Task<string> InsertAsync(Pessoa pessoa)
