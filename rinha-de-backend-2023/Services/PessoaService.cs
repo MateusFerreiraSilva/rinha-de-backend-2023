@@ -8,10 +8,12 @@ namespace rinha_de_backend_2023.Services;
 public class PessoaService : IPessoaService
 {
     private readonly IPessoaRepository _pessoaRepository;
-
-    public PessoaService(IPessoaRepository pessoaRepository)
+    private readonly IContagemPessoasService _contagemPessoasService;
+    
+    public PessoaService(IPessoaRepository pessoaRepository, IContagemPessoasService contagemPessoasService)
     {
         _pessoaRepository = pessoaRepository;
+        _contagemPessoasService = contagemPessoasService;
     }
     
     public string Post(PessoaDTO pessoaDto)
@@ -19,6 +21,9 @@ public class PessoaService : IPessoaService
         var pessoa = new Pessoa(pessoaDto.Apelido, pessoaDto.Nome, pessoaDto.Nascimento, pessoaDto.Stack);
       
         var insertedEntityId = _pessoaRepository.Insert(pessoa);
+
+        _contagemPessoasService.RegisterSuccessfulInsert();
+        
         var path = $"/pessoas/{insertedEntityId}";
 
         return path;
@@ -49,6 +54,7 @@ public class PessoaService : IPessoaService
         return response.Select(
             p => new PessoaDTO
                 {
+                    Id = p.Id,
                     Apelido = p.Apelido,
                     Nome = p.Nome,
                     Nascimento = p.Nascimento,

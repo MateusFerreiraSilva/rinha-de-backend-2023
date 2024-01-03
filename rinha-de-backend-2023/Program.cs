@@ -18,16 +18,9 @@ builder.Services.AddDbContext<RinhaDbContext>(options =>
         var connectionString = builder.Configuration.GetConnectionString(Constants.DATEBASE_DEFAULT_CONNECTION);
         options.UseNpgsql(
             connectionString
-            // x => x.MigrationsAssembly(Constants.PROJECT_DATA_NAME)
         );
     }
 );
-
-#endregion
-
-#region Adding Services
-
-builder.Services.AddScoped<IPessoaService, PessoaService>();
 
 #endregion
 
@@ -35,6 +28,12 @@ builder.Services.AddScoped<IPessoaService, PessoaService>();
 
 builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 
+#endregion
+
+#region Adding Services
+
+builder.Services.AddSingleton<IContagemPessoasService, ContagemPessoasService>();
+builder.Services.AddScoped<IPessoaService, PessoaService>();
 #endregion
 
 #region Configuring The Swagger
