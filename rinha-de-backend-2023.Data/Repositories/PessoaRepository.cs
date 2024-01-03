@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using rinha_de_backend_2023.Data.Models;
+using rinha_de_backend_2023.Data.Utils;
 using rinha_de_backend_2023.Data.Repositories.Interfaces;
 
 namespace rinha_de_backend_2023.Data.Repositories;
@@ -12,19 +13,28 @@ public class PessoaRepository : IPessoaRepository
     {
         _dbContext = dbContext;
     }
-
-    public async Task<Pessoa> GetAsync(string id)
+    
+    public  string Insert(Pessoa pessoa)
     {
-        return await _dbContext.Pessoas
-            .Include(p => p.Technologies)
-            .FirstAsync(p =>  p.Id == id);
-    }
-
-    public async Task<string> InsertAsync(Pessoa pessoa)
-    {
-        await _dbContext.Pessoas.AddAsync(pessoa);
-        await _dbContext.SaveChangesAsync();
+        _dbContext.Pessoas.Add(pessoa);
+        _dbContext.SaveChanges();
 
         return pessoa.Id;
+    }
+
+    public Pessoa? GetById(string id)
+    {
+        return _dbContext.Pessoas
+            .Include(p => p.Technologies)
+            .FirstOrDefault(p =>  p.Id == id);
+    }
+    
+    public IList<Pessoa> Get(string term)
+    {
+        return _dbContext.Pessoas
+            .Include(p => p.Technologies)
+            .Where(p => p.Searchable.Contains(term))
+            .Take(Constants.MAX_NUMBER_OF_REGISTERS_PER_QUERY)
+            .ToList();
     }
 }

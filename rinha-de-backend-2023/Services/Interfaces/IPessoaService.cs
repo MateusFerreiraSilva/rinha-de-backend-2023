@@ -4,7 +4,9 @@ namespace rinha_de_backend_2023.Services.Interfaces;
 
 public interface IPessoaService
 {
-    Task<PessoaDTO> GetAsync(string id);
-
-    Task<string> PostAsync(PessoaDTO pessoaDto);
+    string Post(PessoaDTO pessoaDto);
+    
+    PessoaDTO? GetById(string id);
+    
+    IList<PessoaDTO> Get(string term);
 }

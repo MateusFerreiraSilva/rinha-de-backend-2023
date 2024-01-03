@@ -15,7 +15,8 @@ namespace rinha_de_backend_2023.Data.Migrations
                     Id = table.Column<string>(type: "text", nullable: false),
                     Apelido = table.Column<string>(type: "text", nullable: false),
                     Nome = table.Column<string>(type: "text", nullable: false),
-                    Nascimento = table.Column<string>(type: "text", nullable: false)
+                    Nascimento = table.Column<string>(type: "text", nullable: false),
+                    Searchable = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {

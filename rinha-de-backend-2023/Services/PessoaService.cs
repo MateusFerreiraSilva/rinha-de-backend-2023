@@ -13,10 +13,20 @@ public class PessoaService : IPessoaService
     {
         _pessoaRepository = pessoaRepository;
     }
-
-    public async Task<PessoaDTO> GetAsync(string id)
+    
+    public string Post(PessoaDTO pessoaDto)
     {
-        var response = await _pessoaRepository.GetAsync(id);
+        var pessoa = new Pessoa(pessoaDto.Apelido, pessoaDto.Nome, pessoaDto.Nascimento, pessoaDto.Stack);
+      
+        var insertedEntityId = _pessoaRepository.Insert(pessoa);
+        var path = $"/pessoas/{insertedEntityId}";
+
+        return path;
+    }
+
+    public PessoaDTO? GetById(string id)
+    {
+        var response =  _pessoaRepository.GetById(id);
 
         if (response == null)
         {
@@ -31,22 +41,19 @@ public class PessoaService : IPessoaService
             Stack = response.Technologies?.Select(t => t.Nome).ToList()
         };
     }
-
-    public async Task<string> PostAsync(PessoaDTO pessoaDto)
+    
+    public IList<PessoaDTO> Get(string term)
     {
-        var pessoa = new Pessoa
-        {
-            Apelido = pessoaDto.Apelido,
-            Nome = pessoaDto.Nome,
-            Nascimento = pessoaDto.Nascimento,
-            Technologies = pessoaDto.Stack?.ToList()
-                .Select(t => new Technology { Nome = t })
-                .ToList()
-        };
-      
-        var insertedEntityId = await _pessoaRepository.InsertAsync(pessoa);
-        var path = $"/pessoas/{insertedEntityId}";
+        var response =  _pessoaRepository.Get(term);
 
-        return path;
+        return response.Select(
+            p => new PessoaDTO
+                {
+                    Apelido = p.Apelido,
+                    Nome = p.Nome,
+                    Nascimento = p.Nascimento,
+                    Stack = p.Technologies?.Select(t => t.Nome).ToList()
+                }
+        ).ToList();
     }
 }
