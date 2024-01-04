@@ -1,12 +1,14 @@
 using rinha_de_backend_2023.Models.DTO;
+using rinha_de_backend_2023.Models.DTO.Requests;
+using rinha_de_backend_2023.Models.DTO.Responses;
 
 namespace rinha_de_backend_2023.Services.Interfaces;
 
 public interface IPessoaService
 {
-    string Post(PessoaDTO pessoaDto);
+    string Post(PessoaRequestDTO pessoaRequestDto);
     
-    PessoaDTO? GetById(string id);
+    PessoaResponseDTO? GetById(string id);
     
-    IList<PessoaDTO> Get(string term);
+    IList<PessoaResponseDTO> Get(string term);
 }

@@ -1,6 +1,7 @@
 using rinha_de_backend_2023.Data.Models;
 using rinha_de_backend_2023.Data.Repositories.Interfaces;
-using rinha_de_backend_2023.Models.DTO;
+using rinha_de_backend_2023.Models.DTO.Requests;
+using rinha_de_backend_2023.Models.DTO.Responses;
 using rinha_de_backend_2023.Services.Interfaces;
 
 namespace rinha_de_backend_2023.Services;
@@ -16,9 +17,9 @@ public class PessoaService : IPessoaService
         _contagemPessoasService = contagemPessoasService;
     }
     
-    public string Post(PessoaDTO pessoaDto)
+    public string Post(PessoaRequestDTO pessoaRequestDto)
     {
-        var pessoa = new Pessoa(pessoaDto.Apelido, pessoaDto.Nome, pessoaDto.Nascimento, pessoaDto.Stack);
+        var pessoa = new Pessoa(pessoaRequestDto.Apelido, pessoaRequestDto.Nome, pessoaRequestDto.Nascimento, pessoaRequestDto.Stack);
       
         var insertedEntityId = _pessoaRepository.Insert(pessoa);
 
@@ -29,7 +30,7 @@ public class PessoaService : IPessoaService
         return path;
     }
 
-    public PessoaDTO? GetById(string id)
+    public PessoaResponseDTO? GetById(string id)
     {
         var response =  _pessoaRepository.GetById(id);
 
@@ -38,8 +39,9 @@ public class PessoaService : IPessoaService
             return null;
         }
 
-        return new PessoaDTO
+        return new PessoaResponseDTO
         {
+            Id = response.Id,
             Apelido = response.Apelido,
             Nome = response.Nome,
             Nascimento = response.Nascimento,
@@ -47,12 +49,12 @@ public class PessoaService : IPessoaService
         };
     }
     
-    public IList<PessoaDTO> Get(string term)
+    public IList<PessoaResponseDTO> Get(string term)
     {
         var response =  _pessoaRepository.Get(term);
 
         return response.Select(
-            p => new PessoaDTO
+            p => new PessoaResponseDTO
                 {
                     Id = p.Id,
                     Apelido = p.Apelido,

@@ -16,9 +16,9 @@ builder.Services.AddControllers();
 builder.Services.AddDbContext<RinhaDbContext>(options =>
     {
         var connectionString = builder.Configuration.GetConnectionString(Constants.DATEBASE_DEFAULT_CONNECTION);
-        options.UseNpgsql(
-            connectionString
-        );
+        options
+            .UseNpgsql(connectionString)
+            .UseValidationCheckConstraints();
     }
 );
 
@@ -34,6 +34,7 @@ builder.Services.AddScoped<IPessoaRepository, PessoaRepository>();
 
 builder.Services.AddSingleton<IContagemPessoasService, ContagemPessoasService>();
 builder.Services.AddScoped<IPessoaService, PessoaService>();
+
 #endregion
 
 #region Configuring The Swagger
@@ -47,16 +48,10 @@ builder.Services.AddSwaggerGen(options =>
         Version = "v1",
         Title = "Rinha de Backend 2023",
         Description = "API - Rinha de Backend 2023",
-        TermsOfService = new Uri("https://example.com/terms"),
         Contact = new OpenApiContact
         {
             Name = "Mateus Ferreira Silva",
             Url = new Uri("https://github.com/MateusFerreiraSilva")
-        },
-        License = new OpenApiLicense
-        {
-            Name = "Example License",
-            Url = new Uri("https://example.com/license")
         }
     });
     
@@ -80,7 +75,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI(c =>
 {
-    c.SwaggerEndpoint("/swagger/v1/swagger.json", "My service");
+    c.SwaggerEndpoint("/swagger/v1/swagger.json", "Rinha de backend 2023 API");
     c.RoutePrefix = string.Empty;  // Set Swagger UI at apps root
 });
 

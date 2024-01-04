@@ -11,7 +11,7 @@ using rinha_de_backend_2023.Data;
 namespace rinha_de_backend_2023.Data.Migrations
 {
     [DbContext(typeof(RinhaDbContext))]
-    [Migration("20240103030702_Initial")]
+    [Migration("20240104011414_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -46,7 +46,8 @@ namespace rinha_de_backend_2023.Data.Migrations
 
                     b.Property<string>("Apelido")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
 
                     b.Property<string>("Nascimento")
                         .IsRequired()
@@ -54,7 +55,8 @@ namespace rinha_de_backend_2023.Data.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
                     b.Property<string>("Searchable")
                         .IsRequired()
@@ -63,6 +65,8 @@ namespace rinha_de_backend_2023.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pessoas");
+
+                    b.HasCheckConstraint("CK_Pessoas_Nascimento_RegularExpression", "\"Nascimento\" ~ '^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$'");
                 });
 
             modelBuilder.Entity("rinha_de_backend_2023.Data.Models.Technology", b =>
@@ -73,7 +77,8 @@ namespace rinha_de_backend_2023.Data.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasMaxLength(32)
+                        .HasColumnType("character varying(32)");
 
                     b.HasKey("Id");
 

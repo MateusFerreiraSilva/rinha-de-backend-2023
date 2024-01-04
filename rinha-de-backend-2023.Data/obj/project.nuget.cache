@@ -1,9 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "YfHLP58aq+McNLSjuepjvIFLKJsVsWmr2+ElMcoo2tyed/8cu77vJpaw/HvnPWjTsg55QxoZlUTgnXHh7KWTkA==",
+  "dgSpecHash": "C6x7KyiMpLmOpxPv1CQSs/2q/jJb314WiaNc6EeofpvPdA7HZ1coYghiwctHey03hMe79ks9fDdGSmkjlNktJg==",
   "success": true,
   "projectFilePath": "/home/mateus/Repos/rinha-de-backend-2023/rinha-de-backend-2023.Data/rinha-de-backend-2023.Data.csproj",
   "expectedPackageFiles": [
+    "/home/mateus/.nuget/packages/efcore.checkconstraints/6.0.0/efcore.checkconstraints.6.0.0.nupkg.sha512",
     "/home/mateus/.nuget/packages/humanizer.core/2.8.26/humanizer.core.2.8.26.nupkg.sha512",
     "/home/mateus/.nuget/packages/microsoft.entityframeworkcore/6.0.25/microsoft.entityframeworkcore.6.0.25.nupkg.sha512",
     "/home/mateus/.nuget/packages/microsoft.entityframeworkcore.abstractions/6.0.25/microsoft.entityframeworkcore.abstractions.6.0.25.nupkg.sha512",

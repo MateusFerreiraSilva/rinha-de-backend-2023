@@ -2,6 +2,24 @@
   "version": 3,
   "targets": {
     "net6.0": {
+      "EFCore.CheckConstraints/6.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "6.0.0",
+          "Microsoft.EntityFrameworkCore.Relational": "6.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0"
+        },
+        "compile": {
+          "lib/net6.0/EFCore.CheckConstraints.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/EFCore.CheckConstraints.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Humanizer.Core/2.8.26": {
         "type": "package",
         "compile": {
@@ -363,6 +381,19 @@
     }
   },
   "libraries": {
+    "EFCore.CheckConstraints/6.0.0": {
+      "sha512": "c9wvopkPAZVttEWBjpEakTNPfb9Ro0UKFCQpfOYRkvRKlSQAbA2crMDVV3CecyHMX0w7O1DEKmePbxnXZElzvQ==",
+      "type": "package",
+      "path": "efcore.checkconstraints/6.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "efcore.checkconstraints.6.0.0.nupkg.sha512",
+        "efcore.checkconstraints.nuspec",
+        "lib/net6.0/EFCore.CheckConstraints.dll",
+        "lib/net6.0/EFCore.CheckConstraints.xml"
+      ]
+    },
     "Humanizer.Core/2.8.26": {
       "sha512": "OiKusGL20vby4uDEswj2IgkdchC1yQ6rwbIkZDVBPIR6al2b7n3pC91elBul9q33KaBgRKhbZH3+2Ur4fnWx2A==",
       "type": "package",
@@ -816,6 +847,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "EFCore.CheckConstraints >= 6.0.0",
       "Microsoft.EntityFrameworkCore >= 6.0.25",
       "Microsoft.EntityFrameworkCore.Tools >= 6.0.25",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 6.0.22"
@@ -858,6 +890,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "EFCore.CheckConstraints": {
+            "target": "Package",
+            "version": "[6.0.0, )"
+          },
           "Microsoft.EntityFrameworkCore": {
             "target": "Package",
             "version": "[6.0.25, )"

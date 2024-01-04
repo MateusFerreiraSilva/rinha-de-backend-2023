@@ -1,6 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
-using rinha_de_backend_2023.Models.DTO;
+using rinha_de_backend_2023.Models.DTO.Requests;
+using rinha_de_backend_2023.Models.DTO.Responses;
 using rinha_de_backend_2023.Services.Interfaces;
 
 namespace rinha_de_backend_2023.Controllers.V1;
@@ -22,9 +23,9 @@ public class PessoaController : ControllerBase
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(string))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult Post([FromBody] PessoaDTO pessoa)
+    public IActionResult Post([FromBody] PessoaRequestDTO pessoaRequest)
     {
-        var response = _pessoaService.Post(pessoa);
+        var response = _pessoaService.Post(pessoaRequest);
 
         return Created(response, null);
     }
@@ -34,7 +35,7 @@ public class PessoaController : ControllerBase
     /// </summary>
     [HttpGet]
     [Route("{id}")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PessoaDTO))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PessoaResponseDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetById(string id)
@@ -48,7 +49,7 @@ public class PessoaController : ControllerBase
     /// Get with specific term
     /// </summary>
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PessoaDTO))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PessoaResponseDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult Get([FromQuery(Name="t"), Required] string term)
     {

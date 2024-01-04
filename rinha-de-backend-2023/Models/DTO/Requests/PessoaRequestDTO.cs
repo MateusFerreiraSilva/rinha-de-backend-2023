@@ -1,9 +1,7 @@
-namespace rinha_de_backend_2023.Models.DTO;
+namespace rinha_de_backend_2023.Models.DTO.Requests;
 
-public class PessoaDTO
+public class PessoaRequestDTO
 {
-    public string Id { get; set; }
-    
     public string Apelido { get; set; }
     
     public string Nome { get; set; }

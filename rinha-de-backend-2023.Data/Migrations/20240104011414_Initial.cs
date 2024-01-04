@@ -13,14 +13,15 @@ namespace rinha_de_backend_2023.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Apelido = table.Column<string>(type: "text", nullable: false),
-                    Nome = table.Column<string>(type: "text", nullable: false),
+                    Apelido = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false),
+                    Nome = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Nascimento = table.Column<string>(type: "text", nullable: false),
                     Searchable = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pessoas", x => x.Id);
+                    table.CheckConstraint("CK_Pessoas_Nascimento_RegularExpression", "\"Nascimento\" ~ '^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$'");
                 });
 
             migrationBuilder.CreateTable(
@@ -28,7 +29,7 @@ namespace rinha_de_backend_2023.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(type: "text", nullable: false),
-                    Nome = table.Column<string>(type: "text", nullable: false)
+                    Nome = table.Column<string>(type: "character varying(32)", maxLength: 32, nullable: false)
                 },
                 constraints: table =>
                 {
