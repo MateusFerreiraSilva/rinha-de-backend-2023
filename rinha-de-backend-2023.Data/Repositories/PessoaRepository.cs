@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Npgsql;
 using rinha_de_backend_2023.Data.Models;
 using rinha_de_backend_2023.Data.Utils;
 using rinha_de_backend_2023.Data.Repositories.Interfaces;
@@ -14,12 +15,24 @@ public class PessoaRepository : IPessoaRepository
         _dbContext = dbContext;
     }
     
-    public  string Insert(Pessoa pessoa)
+    public string Insert(Pessoa pessoa)
     {
-        _dbContext.Pessoas.Add(pessoa);
-        _dbContext.SaveChanges();
+        try
+        {
+            _dbContext.Pessoas.Add(pessoa);
+            _dbContext.SaveChanges();
 
-        return pessoa.Id;
+            return pessoa.Id;
+        }
+        catch (DbUpdateException exception) when (exception.InnerException is NpgsqlException sqlException)
+        {
+            if (sqlException.SqlState == Constants.CONSTRAINT_VIOLATION_CODE)
+            {
+                return string.Empty;
+            }
+
+            throw;
+        }
     }
 
     public Pessoa? GetById(string id)
@@ -33,7 +46,7 @@ public class PessoaRepository : IPessoaRepository
     {
         return _dbContext.Pessoas
             .Include(p => p.Technologies)
-            .Where(p => p.Searchable.Contains(term))
+            .Where(p => p.Searchable.Contains(term.ToLower()))
             .Take(Constants.MAX_NUMBER_OF_REGISTERS_PER_QUERY)
             .ToList();
     }

@@ -23,6 +23,11 @@ public class PessoaService : IPessoaService
       
         var insertedEntityId = _pessoaRepository.Insert(pessoa);
 
+        if (insertedEntityId.Equals(string.Empty))
+        {
+            return string.Empty;
+        }
+
         _contagemPessoasService.RegisterSuccessfulInsert();
         
         var path = $"/pessoas/{insertedEntityId}";

@@ -27,6 +27,11 @@ public class PessoaController : ControllerBase
     {
         var response = _pessoaService.Post(pessoaRequest);
 
+        if (response.Equals(string.Empty))
+        {
+            return UnprocessableEntity();
+        }
+
         return Created(response, null);
     }
     

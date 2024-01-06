@@ -11,7 +11,7 @@ using rinha_de_backend_2023.Data;
 namespace rinha_de_backend_2023.Data.Migrations
 {
     [DbContext(typeof(RinhaDbContext))]
-    [Migration("20240104011414_Initial")]
+    [Migration("20240106205850_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -63,6 +63,8 @@ namespace rinha_de_backend_2023.Data.Migrations
                         .HasColumnType("text");
 
                     b.HasKey("Id");
+
+                    b.HasAlternateKey("Apelido");
 
                     b.ToTable("Pessoas");
 

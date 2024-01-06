@@ -1,6 +1,5 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 using rinha_de_backend_2023.Data.Utils;
 
 namespace rinha_de_backend_2023.Data.Models;
@@ -13,6 +12,7 @@ public sealed class Pessoa
     
     [Required]
     [MaxLength(Constants.NICKNAME_MAX_LEN)]
+    // TO DO add index GIN or GiST, trigram
     public string Apelido { get; set; }
     
     [Required]
@@ -53,6 +53,10 @@ public sealed class Pessoa
             .Select(t => new Technology { Nome = t })
             .ToList();
         
-        Searchable =  (apelido + nome + string.Join(string.Empty, stack ?? new List<string>())).ToLower();
+        Searchable =  (
+            apelido.RemoveAllWhiteSpaces() +
+            nome.RemoveAllWhiteSpaces() +
+            string.Join(string.Empty, stack ?? new List<string>()).RemoveAllWhiteSpaces()
+        ).ToLower();
     }
 }

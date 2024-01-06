@@ -62,6 +62,8 @@ namespace rinha_de_backend_2023.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasAlternateKey("Apelido");
+
                     b.ToTable("Pessoas");
 
                     b.HasCheckConstraint("CK_Pessoas_Nascimento_RegularExpression", "\"Nascimento\" ~ '^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$'");

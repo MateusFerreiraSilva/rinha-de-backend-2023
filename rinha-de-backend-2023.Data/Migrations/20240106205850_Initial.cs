@@ -21,6 +21,7 @@ namespace rinha_de_backend_2023.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pessoas", x => x.Id);
+                    table.UniqueConstraint("AK_Pessoas_Apelido", x => x.Apelido);
                     table.CheckConstraint("CK_Pessoas_Nascimento_RegularExpression", "\"Nascimento\" ~ '^(19|20)\\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01])$'");
                 });
 
