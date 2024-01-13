@@ -26,12 +26,14 @@ public class PessoaRepository : IPessoaRepository
         }
         catch (DbUpdateException exception) when (exception.InnerException is NpgsqlException sqlException)
         {
-            if (sqlException.SqlState == Constants.CONSTRAINT_VIOLATION_CODE)
+            switch (sqlException.SqlState)
             {
-                return string.Empty;
+                case Constants.CONSTRAINT_VIOLATION_CODE:
+                case Constants.UNIQUE_CONSTRAINT_VIOLATION_CODE:
+                    return string.Empty;
+                default:
+                    throw;
             }
-
-            throw;
         }
     }
 
@@ -46,7 +48,7 @@ public class PessoaRepository : IPessoaRepository
     {
         return _dbContext.Pessoas
             .Include(p => p.Technologies)
-            .Where(p => p.Searchable.Contains(term.ToLower()))
+            .Where(p => p.Searchable.Contains(term.ToLower().RemoveAllWhiteSpaces()))
             .Take(Constants.MAX_NUMBER_OF_REGISTERS_PER_QUERY)
             .ToList();
     }
