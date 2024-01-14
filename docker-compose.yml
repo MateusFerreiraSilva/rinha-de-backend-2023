@@ -1,0 +1,29 @@
+version: '3.5'
+
+services:    
+    api:
+        container_name: rinha-de-backend-2023-api
+        image: rinha-de-backend-2023-api
+        depends_on:
+          - "db"
+        build:
+          context: .
+          dockerfile: Dockerfile
+        ports:
+          - "5000:80"
+          
+    db:
+        container_name: rinha-de-backend-2023-db
+        image: postgres:16.1
+        ports:
+        - "5432:5432"
+        volumes:
+        - postgres:/data/postgres
+        restart: always
+        environment:
+            POSTGRES_USER: "postgres"
+            POSTGRES_PASSWORD: "postgres"
+            POSTGRES_DB: "rinha-de-backend-2023-db"
+
+volumes:
+  postgres:

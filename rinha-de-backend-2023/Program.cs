@@ -87,9 +87,7 @@ var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<RinhaDbContext>();
 
-if (context.Database.GetPendingMigrations().Any()) {
-    context.Database.Migrate();
-}
+context.Database.EnsureCreated();
 
 #endregion
 
