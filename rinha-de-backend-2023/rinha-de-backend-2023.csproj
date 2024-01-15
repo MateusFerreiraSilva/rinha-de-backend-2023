@@ -8,7 +8,16 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="EFCore.CheckConstraints" Version="6.0.0" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
       <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\rinha-de-backend-2023.Data\rinha-de-backend-2023.Data.csproj" />
     </ItemGroup>
 
 </Project>

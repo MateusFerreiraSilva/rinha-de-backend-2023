@@ -1,3 +1,7 @@
 .idea
 rinha-de-backend-2023/bin
 rinha-de-backend-2023/obj
+rinha-de-backend-2023.Data/bin
+rinha-de-backend-2023.Data/obj
+rinha-de-backend-2023.Data/Migrations
+stress-test/user-files/results
