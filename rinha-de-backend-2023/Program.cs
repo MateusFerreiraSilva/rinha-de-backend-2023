@@ -87,7 +87,10 @@ var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
 var context = services.GetRequiredService<RinhaDbContext>();
 
-context.Database.EnsureCreated();
+if (!context.Database.CanConnect())
+{
+    context.Database.EnsureCreated();
+}
 
 #endregion
 
