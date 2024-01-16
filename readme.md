@@ -10,5 +10,5 @@ To run stress tests, it is necessary that [Gatling](https://gatling.io/open-sour
 
 ```zsh
 cd stress-test
-zsh run-test-sh
+sudo ./run-test-sh
 ```

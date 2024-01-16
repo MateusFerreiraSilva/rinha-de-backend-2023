@@ -1,6 +1,8 @@
 using System.Reflection;
+using Medallion.Threading.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
+using Npgsql;
 using rinha_de_backend_2023.Models;
 using rinha_de_backend_2023.Data;
 using rinha_de_backend_2023.Data.Repositories;
@@ -13,9 +15,10 @@ builder.Services.AddControllers();
 
 #region Add Database
 
+var connectionString = builder.Configuration.GetConnectionString(Constants.DATEBASE_DEFAULT_CONNECTION);
+
 builder.Services.AddDbContext<RinhaDbContext>(options =>
     {
-        var connectionString = builder.Configuration.GetConnectionString(Constants.DATEBASE_DEFAULT_CONNECTION);
         options
             .UseNpgsql(connectionString)
             .UseValidationCheckConstraints();
@@ -81,15 +84,21 @@ app.UseSwaggerUI(c =>
 
 #endregion
 
-#region Applying Migrations
+#region Creating Database
+
+var @lock = new PostgresDistributedLock(new PostgresAdvisoryLockKey("MyLock", allowHashing: true), connectionString);
 
 var scope = app.Services.CreateScope();
 var services = scope.ServiceProvider;
-var context = services.GetRequiredService<RinhaDbContext>();
 
-if (!context.Database.CanConnect())
+await using (var context = services.GetRequiredService<RinhaDbContext>())
 {
-    context.Database.EnsureCreated();
+    await using (await @lock.AcquireAsync())
+    {
+        var hasDatabaseBeenCreated = context.Database.EnsureCreated();
+        
+        Console.WriteLine($"Database has been created by this application: {hasDatabaseBeenCreated}");
+    }
 }
 
 #endregion
