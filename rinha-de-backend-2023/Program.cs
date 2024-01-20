@@ -2,7 +2,6 @@ using System.Reflection;
 using Medallion.Threading.Postgres;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
-using Npgsql;
 using rinha_de_backend_2023.Models;
 using rinha_de_backend_2023.Data;
 using rinha_de_backend_2023.Data.Repositories;
@@ -20,7 +19,13 @@ var connectionString = builder.Configuration.GetConnectionString(Constants.DATEB
 builder.Services.AddDbContext<RinhaDbContext>(options =>
     {
         options
-            .UseNpgsql(connectionString)
+            .UseNpgsql(
+                connectionString,
+                npgsqlOptions =>
+                {
+                    npgsqlOptions.EnableRetryOnFailure();
+                }
+            )
             .UseValidationCheckConstraints();
     }
 );

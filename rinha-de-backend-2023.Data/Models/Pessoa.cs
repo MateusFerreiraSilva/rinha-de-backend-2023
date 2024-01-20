@@ -23,7 +23,8 @@ public sealed class Pessoa
     [RegularExpression(@"^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$")]
     public string Nascimento { get; set; }
 
-    public IList<Technology>? Technologies { get; set; }
+    // TO DO Add something like  [MaxLength(Constants.TECHNOLOGY_NAME_MAX_LEN)] for each item
+    public string Stack { get; set; }
 
     public string Searchable { get; private set; }
 
@@ -31,32 +32,16 @@ public sealed class Pessoa
     {
     }
 
-    public Pessoa(string apelido, string nome, string nascimento, IList<Technology>? stack)
+    public Pessoa(string apelido, string nome, string nascimento, string stack)
     {
         Apelido = apelido;
         Nome = nome;
         Nascimento = nascimento;
-        Technologies = stack;
+        Stack = stack;
         Searchable = (
-            apelido +
-            nome +
-            string.Join(string.Empty, stack?.ToList().Select(t => t.Nome).ToList() ?? new List<string>())
-        ).ToLower();
-    }
-    
-    public Pessoa(string apelido, string nome, string nascimento, IList<string>? stack)
-    {
-        Apelido = apelido;
-        Nome = nome;
-        Nascimento = nascimento;
-        Technologies = stack?.ToList()
-            .Select(t => new Technology { Nome = t })
-            .ToList();
-        
-        Searchable =  (
             apelido.RemoveAllWhiteSpaces() +
             nome.RemoveAllWhiteSpaces() +
-            string.Join(string.Empty, stack ?? new List<string>()).RemoveAllWhiteSpaces()
+            stack.RemoveAllSemicolons().RemoveAllWhiteSpaces()
         ).ToLower();
     }
 }
