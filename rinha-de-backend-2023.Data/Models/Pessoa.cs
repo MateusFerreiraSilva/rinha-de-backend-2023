@@ -12,10 +12,12 @@ public sealed class Pessoa
     
     [Required]
     [MaxLength(Constants.NICKNAME_MAX_LEN)]
+    [MinLength(Constants.STR_FIELD_MIN_LEN)]
     public string Apelido { get; set; }
     
     [Required]
     [MaxLength(Constants.NAME_MAX_LEN)]
+    [MinLength(Constants.STR_FIELD_MIN_LEN)]
     public string Nome { get; set; }
     
     [Required]

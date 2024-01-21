@@ -13,6 +13,6 @@ public class PessoaRequestDTO
     public bool IsStackValid()
     {
         return Stack?.DefaultIfEmpty() == null ||
-               Stack.All(s => s.Length <= Data.Utils.Constants.TECHNOLOGY_NAME_MAX_LEN);
+               Stack.All(s => s != null && s.Length >= Data.Utils.Constants.STR_FIELD_MIN_LEN && s.Length <= Data.Utils.Constants.TECHNOLOGY_NAME_MAX_LEN);
     }
 }
