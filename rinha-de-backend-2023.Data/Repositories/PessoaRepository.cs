@@ -30,10 +30,18 @@ public class PessoaRepository : IPessoaRepository
             {
                 case Constants.CONSTRAINT_VIOLATION_CODE:
                 case Constants.UNIQUE_CONSTRAINT_VIOLATION_CODE:
+                case Constants.LENGTH_CONSTRAINT_VIOLATION_CODE:
                     return string.Empty;
                 default:
+                    Console.Write("Ah muleke");
                     throw;
             }
+        }
+        catch (Exception ex)
+        {
+            Console.Write("ahh carai");
+            Console.Write(ex);
+            throw;
         }
     }
 

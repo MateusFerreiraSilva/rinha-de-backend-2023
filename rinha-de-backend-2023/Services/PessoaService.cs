@@ -19,7 +19,7 @@ public class PessoaService : IPessoaService
     
     public string Post(PessoaRequestDTO pessoaRequestDto)
     {
-        if (!pessoaRequestDto.IsStackValid())
+        if (!pessoaRequestDto.IsValid())
         {
             return string.Empty;
         }

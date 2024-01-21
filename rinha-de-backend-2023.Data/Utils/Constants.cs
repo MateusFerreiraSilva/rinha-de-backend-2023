@@ -9,4 +9,5 @@ public static class Constants
     public const int TECHNOLOGY_NAME_MAX_LEN = 32;
     public const string CONSTRAINT_VIOLATION_CODE = "23514";
     public const string UNIQUE_CONSTRAINT_VIOLATION_CODE = "23505";
+    public const string LENGTH_CONSTRAINT_VIOLATION_CODE = "22001";
 }
