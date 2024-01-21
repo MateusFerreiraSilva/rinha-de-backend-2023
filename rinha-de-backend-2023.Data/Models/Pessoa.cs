@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using NpgsqlTypes;
 using rinha_de_backend_2023.Data.Utils;
 
 namespace rinha_de_backend_2023.Data.Models;
@@ -12,7 +13,6 @@ public sealed class Pessoa
     
     [Required]
     [MaxLength(Constants.NICKNAME_MAX_LEN)]
-    // TO DO add index GIN or GiST, trigram
     public string Apelido { get; set; }
     
     [Required]
@@ -21,12 +21,12 @@ public sealed class Pessoa
     
     [Required]
     [RegularExpression(@"^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$")]
-    public string Nascimento { get; set; }
+    public string Nascimento { get; set; } // TO DO mudar para usar Datetime
 
     // TO DO Add something like  [MaxLength(Constants.TECHNOLOGY_NAME_MAX_LEN)] for each item
     public string Stack { get; set; }
-
-    public string Searchable { get; private set; }
+    
+    public NpgsqlTsVector SearchVector { get; set; }
 
     public Pessoa()
     {
@@ -38,10 +38,5 @@ public sealed class Pessoa
         Nome = nome;
         Nascimento = nascimento;
         Stack = stack;
-        Searchable = (
-            apelido.RemoveAllWhiteSpaces() +
-            nome.RemoveAllWhiteSpaces() +
-            stack.RemoveAllSemicolons().RemoveAllWhiteSpaces()
-        ).ToLower();
     }
 }

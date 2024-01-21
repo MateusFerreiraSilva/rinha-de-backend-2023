@@ -15,5 +15,14 @@ public class RinhaDbContext : DbContext
     {
         modelBuilder.Entity<Pessoa>()
             .HasAlternateKey(p => p.Apelido);
+        
+        modelBuilder.Entity<Pessoa>()
+            .HasGeneratedTsVectorColumn(
+                p => p.SearchVector,
+                "simple",
+                p => new { p.Apelido, p.Nome, p.Stack }
+            )
+            .HasIndex(p => p.SearchVector)
+            .HasMethod("GIST"); // use gist trigram?
     } 
 }

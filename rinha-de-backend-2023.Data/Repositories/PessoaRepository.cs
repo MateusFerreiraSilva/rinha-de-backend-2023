@@ -46,7 +46,7 @@ public class PessoaRepository : IPessoaRepository
     public IList<Pessoa> Get(string term)
     {
         return _dbContext.Pessoas
-            .Where(p => p.Searchable.Contains(term.ToLower().RemoveAllWhiteSpaces()))
+            .Where(p => p.SearchVector.Matches(EF.Functions.ToTsQuery("simple", term + ":*")))
             .Take(Constants.MAX_NUMBER_OF_REGISTERS_PER_QUERY)
             .ToList();
     }
