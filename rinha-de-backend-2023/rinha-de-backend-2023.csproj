@@ -8,6 +8,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="DistributedLock.Postgres" Version="1.0.5" />
       <PackageReference Include="EFCore.CheckConstraints" Version="6.0.0" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="6.0.25">
         <PrivateAssets>all</PrivateAssets>

@@ -40,14 +40,12 @@ public class PessoaRepository : IPessoaRepository
     public Pessoa? GetById(string id)
     {
         return _dbContext.Pessoas
-            .Include(p => p.Technologies)
             .FirstOrDefault(p =>  p.Id == id);
     }
     
     public IList<Pessoa> Get(string term)
     {
         return _dbContext.Pessoas
-            .Include(p => p.Technologies)
             .Where(p => p.Searchable.Contains(term.ToLower().RemoveAllWhiteSpaces()))
             .Take(Constants.MAX_NUMBER_OF_REGISTERS_PER_QUERY)
             .ToList();
