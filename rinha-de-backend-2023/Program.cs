@@ -9,9 +9,14 @@ using rinha_de_backend_2023.Data.Repositories;
 using rinha_de_backend_2023.Data.Repositories.Interfaces;
 using rinha_de_backend_2023.Services;
 using rinha_de_backend_2023.Services.Interfaces;
+using rinha_de_backend_2023.Utils;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+    });
 
 #region Add Database
 

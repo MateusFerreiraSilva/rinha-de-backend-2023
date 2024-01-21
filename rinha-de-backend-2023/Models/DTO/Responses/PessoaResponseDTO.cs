@@ -8,7 +8,7 @@ public class PessoaResponseDTO
     
     public string Nome { get; set; }
 
-    public string Nascimento { get; set; }
+    public DateOnly Nascimento { get; set; }
 
     public IList<string>? Stack { get; set; }
 }

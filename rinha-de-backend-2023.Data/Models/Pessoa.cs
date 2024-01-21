@@ -12,7 +12,6 @@ public sealed class Pessoa
     
     [Required]
     [MaxLength(Constants.NICKNAME_MAX_LEN)]
-    // TO DO add index GIN or GiST, trigram
     public string Apelido { get; set; }
     
     [Required]
@@ -20,8 +19,7 @@ public sealed class Pessoa
     public string Nome { get; set; }
     
     [Required]
-    [RegularExpression(@"^(19|20)\d{2}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$")]
-    public string Nascimento { get; set; }
+    public DateOnly Nascimento { get; set; }
     
     public List<string> Stack { get; set; }
 
@@ -31,7 +29,7 @@ public sealed class Pessoa
     {
     }
 
-    public Pessoa(string apelido, string nome, string nascimento, IList<string>? stack)
+    public Pessoa(string apelido, string nome, DateOnly nascimento, IList<string>? stack)
     {
         Apelido = apelido;
         Nome = nome;
