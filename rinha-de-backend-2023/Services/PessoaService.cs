@@ -1,6 +1,5 @@
 using rinha_de_backend_2023.Data.Models;
 using rinha_de_backend_2023.Data.Repositories.Interfaces;
-using rinha_de_backend_2023.Models;
 using rinha_de_backend_2023.Models.DTO.Requests;
 using rinha_de_backend_2023.Models.DTO.Responses;
 using rinha_de_backend_2023.Services.Interfaces;
@@ -20,7 +19,12 @@ public class PessoaService : IPessoaService
     
     public string Post(PessoaRequestDTO pessoaRequestDto)
     {
-        var pessoa = new Pessoa(pessoaRequestDto.Apelido, pessoaRequestDto.Nome, pessoaRequestDto.Nascimento, string.Join(Constants.STACK_SEPARATOR, pessoaRequestDto.Stack ?? new List<string>()));
+        if (!pessoaRequestDto.IsStackValid())
+        {
+            return string.Empty;
+        }
+
+        var pessoa = new Pessoa(pessoaRequestDto.Apelido, pessoaRequestDto.Nome, pessoaRequestDto.Nascimento, pessoaRequestDto?.Stack);
       
         var insertedEntityId = _pessoaRepository.Insert(pessoa);
 
@@ -51,7 +55,7 @@ public class PessoaService : IPessoaService
             Apelido = response.Apelido,
             Nome = response.Nome,
             Nascimento = response.Nascimento,
-            Stack = response.Stack.Split(Constants.STACK_SEPARATOR)
+            Stack = response.Stack
         };
     }
     
@@ -66,7 +70,7 @@ public class PessoaService : IPessoaService
                     Apelido = p.Apelido,
                     Nome = p.Nome,
                     Nascimento = p.Nascimento,
-                    Stack = p.Stack.Split(Constants.STACK_SEPARATOR)
+                    Stack = p.Stack
                 }
         ).ToList();
     }

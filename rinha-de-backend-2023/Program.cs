@@ -1,5 +1,6 @@
 using System.Reflection;
 using Medallion.Threading.Postgres;
+using Microsoft.AspNetCore.Routing.Matching;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using rinha_de_backend_2023.Models;
@@ -100,7 +101,7 @@ await using (var context = services.GetRequiredService<RinhaDbContext>())
 {
     await using (await @lock.AcquireAsync())
     {
-        var hasDatabaseBeenCreated = context.Database.EnsureCreated();
+        var hasDatabaseBeenCreated = await context.Database.EnsureCreatedAsync();
         
         Console.WriteLine($"Database has been created by this application: {hasDatabaseBeenCreated}");
     }

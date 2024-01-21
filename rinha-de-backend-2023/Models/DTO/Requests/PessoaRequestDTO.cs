@@ -9,4 +9,10 @@ public class PessoaRequestDTO
     public string Nascimento { get; set; }
 
     public IList<string>? Stack { get; set; }
+
+    public bool IsStackValid()
+    {
+        return Stack?.DefaultIfEmpty() == null ||
+               Stack.All(s => s.Length == Data.Utils.Constants.TECHNOLOGY_NAME_MAX_LEN);
+    }
 }
