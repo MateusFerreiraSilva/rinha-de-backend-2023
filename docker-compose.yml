@@ -16,8 +16,8 @@ services:
         deploy:
           resources:
             limits:
-              cpus: '0.3'
-              memory: '350MB'
+              cpus: '0.25'
+              memory: '400MB'
         network_mode: host
 
     api1:
@@ -34,8 +34,8 @@ services:
       deploy:
         resources:
           limits:
-            cpus: '0.3'
-            memory: '350MB'
+            cpus: '0.25'
+            memory: '400MB'
       network_mode: host
     
     db:
@@ -55,7 +55,7 @@ services:
           resources:
             limits:
               cpus: '0.8'
-              memory: '2.5GB'
+              memory: '2GB'
         network_mode: host
 
     load-balancer:
@@ -71,8 +71,8 @@ services:
       deploy:
         resources:
           limits:
-            cpus: '0.1'
-            memory: '100MB'
+            cpus: '0.2'
+            memory: '200MB'
       network_mode: host
 
 volumes:
